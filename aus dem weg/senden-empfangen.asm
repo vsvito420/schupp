@@ -40,24 +40,23 @@ main:	ldi	r16,lo8(RAMEND)
 	ldi	r16,hi8(RAMEND)
 	out	ioSPH,r16
 	;Hier Init-Code eintragen.
-	
-	ldi	r16, 23	;konstante 23 in R16 schreiben
-	out	UBRRL, r16	; Wert aus 16 in ubrr schreiben
-	
-	sbi	UCSRB, 3	;UART Senden Aktivieren bit 3 in UCSRB setzen
+
+	ldi	r16,23	;konstante 23 in R16 schreiben
+	out	UBRRL,r16	; Wert aus 16 in ubrr schreiben
+
+	sbi	UCSRB,3	;UART Senden Aktivieren bit 3 in UCSRB setzen
 ;------------------------------------------------------------------------
 mainloop:	wdr
 	;Hier den Quellcode eintragen.
-	
-	ldi	r16, 'H'
+
+	ldi	r16,'H'
 	rcall	senden
-	
-ende:	rjmp ende
+
+ende:	rjmp	ende
 ;------------------------------------------------------------------------
 
-senden:	sbis	UCSRA, 5	;Überspringe nächtsten befehl
+senden:	sbis	UCSRA,5	;Überspringe nächtsten befehl
 	rjmp	senden	;wenn bit 5 in ucsra wert '1' hat springe zum senden
-	
-	out	UDR, r16
+
+	out	UDR,r16
 	ret
-	
